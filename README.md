@@ -94,25 +94,17 @@ node part-b-javascript/bank.js
 
 #### Expected Terminal Output:
 ```text
-=== PART 1: Types & Coercion - Test Cases ===
-[SUCCESS] Input: "500" -> Verified Amount: 500
-[SUCCESS] Input: " 250 " -> Verified Amount: 250
-[CAUGHT ERROR] Input: "" -> Error Message: Amount cannot be empty.
-[CAUGHT ERROR] Input: "abc" -> Error Message: Invalid numeric value: "abc" could not be parsed to a valid number.
-[CAUGHT ERROR] Input: null -> Error Message: Amount is required. Value cannot be null or undefined.
-[CAUGHT ERROR] Input: undefined -> Error Message: Amount is required. Value cannot be null or undefined.
-[CAUGHT ERROR] Input: "12.5.3" -> Error Message: Invalid numeric value: "12.5.3" could not be parsed to a valid number.
-
-
-=== PART 2: Scoping & Hoisting ===
-Bank Name (const): JS National Bank
-Transaction Counter (let): 1
-
-
-1. Hoisted var variable before declaration: undefined
-2. Caught TDZ ReferenceError for let: ReferenceError - Cannot access 'hoistedLet' before initialization
-3. Function Declaration hoisted: System announcement broadcasted successfully.
-4. Caught TypeError for function expression: TypeError - notify is not a function
+500
+250
+Amount cannot be empty.
+Amount must be a valid number.
+Amount is required.
+Amount is required.
+Amount must be a valid number.
+undefined
+ReferenceError: Cannot access 'hoistedLet' before initialization
+System announcement
+TypeError: notify is not a function
 var loop: 3
 var loop: 3
 var loop: 3
@@ -140,3 +132,4 @@ As specified in the assignment submission guidelines:
    git push -u origin main
    ```
 4. **Verification:** Open your repository link in an incognito / private browser window to confirm that the repository is publicly accessible and contains all required folders and files.
+

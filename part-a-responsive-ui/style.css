@@ -331,46 +331,7 @@ img {
 }
 
 /* --------------------------------------------------------------------------
-   6. Additional Scroll Content & Footer
-   -------------------------------------------------------------------------- */
-.placement-stats-section {
-  background-color: var(--color-bg-light);
-  padding: 3.5rem 1.5rem;
-  text-align: center;
-}
-
-.stats-container {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.stats-title {
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: var(--color-primary-navy);
-  margin-bottom: 0.75rem;
-}
-
-.stats-description {
-  font-size: 1rem;
-  color: #4A5568;
-}
-
-.page-footer {
-  background-color: var(--color-primary-navy);
-  color: #C0D6EC;
-  padding: 1.5rem;
-  text-align: center;
-  font-size: 0.85rem;
-}
-
-.footer-container {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-/* --------------------------------------------------------------------------
-   7. Responsive Media Queries
+   6. Responsive Media Queries
    -------------------------------------------------------------------------- */
 
 /* Tablet View (768px – 1024px): Balanced 2- or 3-column wrapping grid */
@@ -502,3 +463,4 @@ img {
     padding: 0.75rem 1.25rem;
   }
 }
+

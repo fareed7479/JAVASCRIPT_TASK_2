@@ -4,172 +4,116 @@
 // PART 1: Types & Coercion
 // ============================================================================
 
-/**
- * Validates a user-provided raw input and returns a verified positive number.
- * Uses functional principles, defensive validation, and strict equality.
- * Throws an Error if validation fails; does not directly log to console.
- *
- * @param {unknown} input - Raw value provided by the user
- * @returns {number} - Validated positive numeric amount
- * @throws {Error} - Descriptive error for invalid types or values
- */
+// Validates raw input and returns a positive number or throws an informative Error
 function parseAmount(input) {
-  // 1. Guard against null and undefined (amount is strictly required)
+  // 1. Guard against null and undefined
   if (input === null || input === undefined) {
-    throw new Error("Amount is required. Value cannot be null or undefined.");
+    throw new Error("Amount is required.");
   }
 
-  // 2. Type check: reject any type that is not a string or number
+  // 2. Reject inputs that are not string or number
   if (typeof input !== "string" && typeof input !== "number") {
-    throw new Error("Invalid type: amount must be a number or a numeric string.");
+    throw new Error("Invalid type: amount must be a string or number.");
   }
 
-  // 3. Normalize string input by removing leading and trailing whitespace
-  const sanitizedInput = typeof input === "string" ? input.trim() : input;
+  // 3. Trim whitespace from string inputs
+  var sanitized = typeof input === "string" ? input.trim() : input;
 
-  // 4. Guard against empty string to prevent coercion to 0 (Number("") === 0)
-  if (sanitizedInput === "") {
+  // 4. Guard against empty string to prevent coercion to 0
+  if (sanitized === "") {
     throw new Error("Amount cannot be empty.");
   }
 
-  // 5. Explicitly convert to number and check for NaN (e.g., "abc", "12.5.3")
-  const numericAmount = Number(sanitizedInput);
-  if (Number.isNaN(numericAmount)) {
-    throw new Error(`Invalid numeric value: "${input}" could not be parsed to a valid number.`);
+  // 5. Convert to number and check for NaN
+  var num = Number(sanitized);
+  if (Number.isNaN(num)) {
+    throw new Error("Amount must be a valid number.");
   }
 
-  // 6. Ensure the transaction amount is strictly positive (> 0)
-  if (numericAmount <= 0) {
-    throw new Error(`Amount must be greater than zero. Received: ${numericAmount}`);
+  // 6. Ensure amount is strictly greater than zero
+  if (num <= 0) {
+    throw new Error("Amount must be greater than zero.");
   }
 
-  // 7. Return verified positive number
-  return numericAmount;
+  // 7. Return verified number
+  return num;
 }
 
-// ----------------------------------------------------------------------------
-// Mandatory Comments: Core JavaScript Coercion & Quirks Explanation
-// ----------------------------------------------------------------------------
-// 1. Why "5" + 2 === "52" whereas "5" - 2 === 3:
-// The '+' operator is overloaded in JavaScript for both addition and string concatenation.
-// When one operand is a string ("5"), JavaScript coerces the number 2 to a string ("2"),
-// resulting in string concatenation ("52").
-// In contrast, the '-' operator is strictly mathematical with no string concatenation meaning.
-// Therefore, JavaScript coerces the string "5" into the number 5, computing 5 - 2 = 3.
-//
-// 2. Why typeof null === "object":
-// This is a historical bug from JavaScript's first implementation in 1995.
-// Values were represented using type tags, where object type tags were 000.
-// Since the NULL pointer was 0x00 (all zeros), typeof misidentified null as an object.
-// This behavior is permanently retained across ECMAScript specifications for backwards compatibility.
+// Explanation of JavaScript coercion and quirks:
+// "5" + 2 results in "52" because the binary '+' operator triggers string concatenation when an operand is a string.
+// "5" - 2 results in 3 because '-' is purely arithmetic and implicitly coerces the string "5" to number 5.
+// typeof null === "object" is a legacy bug from JS 1995 where null (0x00) shared the type tag 0 with objects.
 
-// ----------------------------------------------------------------------------
-// Part 1 Testing Suite (Try / Catch per Test Input)
-// ----------------------------------------------------------------------------
-console.log("=== PART 1: Types & Coercion - Test Cases ===");
+// Testing: parseAmount called inside try/catch; logs the number or error message
+var testInputs = ["500", " 250 ", "", "abc", null, undefined, "12.5.3"];
 
-const testInputs = [
-  "500",
-  " 250 ",
-  "",
-  "abc",
-  null,
-  undefined,
-  "12.5.3"
-];
-
-testInputs.forEach((testCase) => {
+testInputs.forEach(function (input) {
   try {
-    const result = parseAmount(testCase);
-    console.log(`[SUCCESS] Input: ${JSON.stringify(testCase)} -> Verified Amount: ${result}`);
+    console.log(parseAmount(input));
   } catch (error) {
-    console.log(`[CAUGHT ERROR] Input: ${JSON.stringify(testCase)} -> Error Message: ${error.message}`);
+    console.log(error.message);
   }
 });
-
-console.log("\n");
 
 
 // ============================================================================
 // PART 2: Scoping & Hoisting
 // ============================================================================
 
-// ----------------------------------------------------------------------------
 // Step 1: Main Declarations
-// ----------------------------------------------------------------------------
-// const is used for BANK_NAME because the bank's identifier is immutable and must never be reassigned.
-// let is used for transactionCounter because the counter mutates and increments with every new transaction.
+// const is used for BANK_NAME because its value is constant and should never be reassigned.
+// let is used for transactionCounter because its numeric value increments as transactions occur.
 const BANK_NAME = "JS National Bank";
 let transactionCounter = 0;
 
-console.log("=== PART 2: Scoping & Hoisting ===");
-console.log(`Bank Name (const): ${BANK_NAME}`);
-transactionCounter++;
-console.log(`Transaction Counter (let): ${transactionCounter}`);
-console.log("\n");
 
-
-// ----------------------------------------------------------------------------
-// Step 2: Hoisting Demo (Header: // HOISTING DEMO)
-// ----------------------------------------------------------------------------
+// Step 2: Hoisting Demo
 // HOISTING DEMO
 
-// 1. var hoisting: var declarations are hoisted and initialized to undefined during creation phase.
-console.log("1. Hoisted var variable before declaration:", hoistedVar); // prints undefined
-var hoistedVar = "Standard Bank Account";
+// 1. var: hoisted and initialized to undefined during creation phase
+console.log(hoistedVar);
+var hoistedVar = "Bank Account";
 
-// 2. let hoisting: let declarations are hoisted but NOT initialized (Temporal Dead Zone - TDZ).
+// 2. let: hoisted into Temporal Dead Zone (TDZ); accessing before initialization throws ReferenceError
 try {
-  // Accessing a let variable before its initialization line throws ReferenceError
   console.log(hoistedLet);
 } catch (error) {
-  console.log(`2. Caught TDZ ReferenceError for let: ${error.name} - ${error.message}`);
+  console.log(error.name + ": " + error.message);
 }
-let hoistedLet = "Premium Bank Account";
+let hoistedLet = "Bank Account";
 
-// 3. Function Declaration: Entire function definition is hoisted into memory during creation phase.
-announce(); // Successfully executes before its definition line in code
+// 3. Function Declaration: fully hoisted with its definition during creation phase
+announce();
 function announce() {
-  console.log("3. Function Declaration hoisted: System announcement broadcasted successfully.");
+  console.log("System announcement");
 }
 
-// 4. Function Expression: Variable declaration (var notify) is hoisted as undefined; invoking undefined() throws TypeError.
+// 4. Function Expression: var notify is hoisted as undefined; calling undefined() throws TypeError
 try {
   notify();
 } catch (error) {
-  console.log(`4. Caught TypeError for function expression: ${error.name} - ${error.message}`);
+  console.log(error.name + ": " + error.message);
 }
 var notify = function () {
-  console.log("Notification: Daily balance statement generated.");
+  console.log("Notification sent");
 };
 
-// 5. Execution Context Phases Explanation:
-// In the Creation Phase, JavaScript sets up the lexical environment and allocates memory:
-// - Function declarations are fully hoisted with their implementation attached.
-// - 'var' declarations are hoisted and initialized with the default value 'undefined'.
-// - 'let' and 'const' declarations are allocated in memory but left uninitialized in the TDZ.
-// In the Execution Phase, JavaScript runs the code line-by-line, performing assignments and evaluations.
+// 5. Execution context creation vs. execution phases:
+// Creation phase: memory is allocated, function declarations are defined, var is undefined, let/const stay in TDZ.
+// Execution phase: code runs line-by-line assigning values and invoking functions.
 
 
-// ----------------------------------------------------------------------------
 // Step 3: The Asynchronous Loop Bug
-// ----------------------------------------------------------------------------
-// var is function-scoped (or globally scoped). All iterations of the loop share the same variable 'i'.
-// By the time setTimeout callbacks execute after the event loop tick, the loop has completed and 'i' equals 3.
+// var shares a single function/global scoped variable across iterations, logging 3, 3, 3 after timeout.
 for (var i = 0; i < 3; i++) {
   setTimeout(function () {
     console.log("var loop:", i);
   }, 100);
 }
 
-// let is block-scoped. JavaScript creates a new lexical binding for 'i' in each iteration.
-// Each setTimeout closure captures the specific value of 'i' for that iteration (0, 1, and 2).
+// let creates a fresh lexical binding for each loop iteration, correctly logging 0, 1, 2.
 for (let i = 0; i < 3; i++) {
   setTimeout(function () {
     console.log("let loop:", i);
   }, 100);
 }
-
-// Explanation comment for asynchronous loop:
-// 'var' creates a single shared binding across the loop lifecycle, leaving the value at 3 when timeouts fire.
-// 'let' introduces block-level scoping where a fresh environment record is created for each iteration step.
