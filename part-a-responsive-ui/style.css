@@ -1,0 +1,504 @@
+/* ==========================================================================
+   IRP LMS - Responsive Web Design Stylesheet
+   Follows semantic CSS3 principles, CSS Grid, Flexbox, and Media Queries
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Design Tokens & CSS Custom Properties
+   -------------------------------------------------------------------------- */
+:root {
+  --color-primary-navy: #003366;
+  --color-primary-orange: #FE781E;
+  --color-secondary-blue: #5F9FE0;
+  --color-bg-light: #E2F2FD;
+  --color-card-bg: #FFFFFF;
+  --color-border-light: #D6E9FF;
+
+  /* Typography & Transitions */
+  --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --transition-speed: 0.2s ease-in-out;
+  --border-radius-card: 10px;
+  --border-radius-btn: 6px;
+}
+
+/* --------------------------------------------------------------------------
+   2. Reset & Base Styles
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-family-base);
+  color: #333333;
+  background-color: #F8FAFC;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   3. Navigation Bar (CSS Sticky Positioning Requirement)
+   -------------------------------------------------------------------------- */
+.navbar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--color-card-bg);
+  border-bottom: 1px solid var(--color-border-light);
+  box-shadow: 0 2px 8px rgba(0, 51, 102, 0.06);
+  z-index: 1000;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.85rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Brand Logo */
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  cursor: pointer;
+}
+
+.logo-icon {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.brand-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-primary-navy);
+  letter-spacing: -0.01em;
+}
+
+/* Navigation Links (Desktop) */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-link {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-primary-navy);
+  padding: 0.4rem 0.2rem;
+  position: relative;
+  transition: color var(--transition-speed);
+}
+
+.nav-link:hover {
+  color: var(--color-primary-orange);
+}
+
+/* Active Orange Underline Indicator on "Home" link */
+.nav-link.active {
+  color: var(--color-primary-navy);
+  font-weight: 600;
+}
+
+.nav-link.active::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2.5px;
+  background-color: var(--color-primary-orange);
+  border-radius: 2px;
+}
+
+/* Sign In Button */
+.btn-signin {
+  display: inline-block;
+  padding: 0.45rem 1.15rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-primary-orange);
+  border: 1.5px solid var(--color-primary-orange);
+  border-radius: var(--border-radius-btn);
+  background-color: transparent;
+  transition: all var(--transition-speed);
+}
+
+.btn-signin:hover {
+  background-color: var(--color-primary-orange);
+  color: #FFFFFF;
+}
+
+/* --------------------------------------------------------------------------
+   4. Hero Banner Section
+   -------------------------------------------------------------------------- */
+.hero-section {
+  background-color: var(--color-bg-light);
+  padding: 3.5rem 1.5rem;
+}
+
+.hero-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
+}
+
+.hero-content {
+  flex: 1;
+  max-width: 580px;
+}
+
+.hero-kicker {
+  color: var(--color-primary-orange);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.85rem;
+}
+
+.hero-headline {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  font-weight: 800;
+  color: var(--color-primary-navy);
+  margin-bottom: 1.25rem;
+}
+
+.hero-headline .highlight {
+  color: var(--color-primary-orange);
+}
+
+.hero-subtitle {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #4A5568;
+  margin-bottom: 2rem;
+}
+
+.hero-cta {
+  display: flex;
+  align-items: center;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.8rem;
+  background-color: var(--color-primary-orange);
+  color: #FFFFFF;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: var(--border-radius-btn);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(254, 120, 30, 0.28);
+  transition: all var(--transition-speed);
+}
+
+.btn-primary:hover {
+  background-color: #E26410;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(254, 120, 30, 0.35);
+}
+
+.hero-illustration {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.illustration-img {
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* --------------------------------------------------------------------------
+   5. Learning Journey Section
+   -------------------------------------------------------------------------- */
+.journey-section {
+  background-color: #FFFFFF;
+  padding: 4.5rem 1.5rem;
+}
+
+.journey-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-primary-navy);
+  margin-bottom: 0.6rem;
+}
+
+.section-subtitle {
+  font-size: 1rem;
+  color: #556B82;
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+/* Responsive Steps Layout Engine */
+.steps-grid {
+  display: grid;
+  gap: 1.25rem;
+  /* Desktop View (> 1024px): Exact 5-column horizontal row */
+  grid-template-columns: repeat(5, 1fr);
+}
+
+/* Step Card Styling */
+.step-card {
+  background-color: var(--color-card-bg);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--border-radius-card);
+  padding: 1.25rem; /* within 16px–20px */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.85rem;
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed), border-color var(--transition-speed);
+}
+
+.step-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 51, 102, 0.08);
+  border-color: var(--color-secondary-blue);
+}
+
+.step-number {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--color-primary-orange);
+  line-height: 1;
+}
+
+.step-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.step-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-primary-navy);
+}
+
+.step-description {
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: #556B82;
+}
+
+/* --------------------------------------------------------------------------
+   6. Additional Scroll Content & Footer
+   -------------------------------------------------------------------------- */
+.placement-stats-section {
+  background-color: var(--color-bg-light);
+  padding: 3.5rem 1.5rem;
+  text-align: center;
+}
+
+.stats-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.stats-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--color-primary-navy);
+  margin-bottom: 0.75rem;
+}
+
+.stats-description {
+  font-size: 1rem;
+  color: #4A5568;
+}
+
+.page-footer {
+  background-color: var(--color-primary-navy);
+  color: #C0D6EC;
+  padding: 1.5rem;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* --------------------------------------------------------------------------
+   7. Responsive Media Queries
+   -------------------------------------------------------------------------- */
+
+/* Tablet View (768px – 1024px): Balanced 2- or 3-column wrapping grid */
+@media (max-width: 1024px) {
+  .hero-container {
+    gap: 2rem;
+  }
+
+  .hero-headline {
+    font-size: 2.15rem;
+  }
+
+  .steps-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Mobile View (≤ 768px):
+   - Compact top bar: Nav links collapse / hide
+   - Brand logo on left, outlined Sign In button on right with comfortable touch spacing
+   - Stacked hero layout: clean vertical stream, illustration scales without overflowing
+   - Strict 1-column vertical stack for cards: number distinctly on top-left (matching Figure 2)
+*/
+@media (max-width: 768px) {
+  .nav-container {
+    padding: 0.75rem 1rem;
+  }
+
+  /* Desktop navigation links collapse or hide */
+  .nav-links {
+    display: none;
+  }
+
+  .btn-signin {
+    padding: 0.4rem 0.95rem;
+    font-size: 0.85rem;
+  }
+
+  /* Hero Banner stacks vertically */
+  .hero-section {
+    padding: 2.25rem 1rem;
+  }
+
+  .hero-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .hero-content {
+    max-width: 100%;
+  }
+
+  .hero-headline {
+    font-size: 1.85rem;
+    line-height: 1.25;
+  }
+
+  .hero-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-cta {
+    justify-content: center;
+  }
+
+  .illustration-img {
+    max-width: 320px;
+    width: 100%;
+  }
+
+  /* Learning Journey Section */
+  .journey-section {
+    padding: 2.75rem 1rem;
+  }
+
+  .section-title {
+    font-size: 1.6rem;
+  }
+
+  .section-subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Strict 1-column vertical stack */
+  .steps-grid {
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+  }
+
+  /* Step Card in Mobile: Number positioned distinctly on top-left (horizontal row card layout) */
+  .step-card {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1.15rem;
+    padding: 1.1rem;
+  }
+
+  .step-number {
+    font-size: 1.75rem;
+    min-width: 24px;
+  }
+
+  .step-body {
+    text-align: left;
+  }
+}
+
+/* Extra small mobile adjustments (≤ 420px, e.g. 375px/390px iPhone) */
+@media (max-width: 420px) {
+  .brand-name {
+    font-size: 1.1rem;
+  }
+
+  .logo-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .hero-headline {
+    font-size: 1.65rem;
+  }
+
+  .btn-primary {
+    width: 100%;
+    justify-content: center;
+    padding: 0.75rem 1.25rem;
+  }
+}
