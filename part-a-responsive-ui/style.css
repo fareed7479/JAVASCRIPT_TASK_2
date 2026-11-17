@@ -1,11 +1,3 @@
-/* ==========================================================================
-   IRP LMS - Responsive Web Design Stylesheet
-   Follows semantic CSS3 principles, CSS Grid, Flexbox, and Media Queries
-   ========================================================================== */
-
-/* --------------------------------------------------------------------------
-   1. Design Tokens & CSS Custom Properties
-   -------------------------------------------------------------------------- */
 :root {
   --color-primary-navy: #003366;
   --color-primary-orange: #FE781E;

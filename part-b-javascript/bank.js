@@ -1,8 +1,7 @@
 "use strict";
 
-// ============================================================================
+
 // PART 1: Types & Coercion
-// ============================================================================
 
 // Validates raw input and returns a positive number or throws an informative Error
 function parseAmount(input) {
@@ -56,9 +55,9 @@ testInputs.forEach(function (input) {
 });
 
 
-// ============================================================================
+
 // PART 2: Scoping & Hoisting
-// ============================================================================
+
 
 // Step 1: Main Declarations
 // const is used for BANK_NAME because its value is constant and should never be reassigned.
